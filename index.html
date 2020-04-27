@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>タイトル</title>
+    <meta name="description" content="サイトの説明を記載します" />
+    <link rel="icon" href="favicon.ico" />
+  </head>
+  <body>
+    <div>Identity Platform Quickstart</div>
+    <div id="message">Loading...</div>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase.js"></script>
+    <script>
+      // API keyなどを記載
+      var config = {
+        apiKey: "",
+        authDomain: "",
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      // 作成したuserとpasswordを記載
+      var email = "";
+      var password = "";
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          document.getElementById("message").innerHTML =
+            "Welcome, " + user.email;
+        } else {
+          document.getElementById("message").innerHTML = "No user signed in.";
+        }
+      });
+
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .catch(function (error) {
+          document.getElementById("message").innerHTML = error.message;
+        });
+    </script>
+  </body>
+</html>
